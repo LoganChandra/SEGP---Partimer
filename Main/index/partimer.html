@@ -1,0 +1,953 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Partimer</title>
+    <link rel="shortcut icon" type="image/png" href="../../main/Partimer_logo.png"/>
+
+    <script src="../../dist/vis.js"></script>
+    <link href="../../dist/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://bgrins.github.io/spectrum/spectrum.css" rel="stylesheet" type="text/css" />
+
+    <link href="../../main/PrototypeCSS.css" rel="stylesheet" type="text/css" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://bgrins.github.io/spectrum/spectrum.js"></script>
+
+    <!-- Timer.js -->
+    <link rel="stylesheet" type="text/css" href="../../main/Timer/sidebar.css">
+    <link rel="stylesheet" type="text/css" href="../../main/Timer/LightThemeCSS.css">
+    <link disabled id="dark_theme" rel="stylesheet" href="../../main/Timer/DarkThemeCSS.css">
+
+    <script src="../../main/Timer/Theme.js"></script>
+
+    <!-- JSTools.js -->
+    <script src="../../main/JSTools/PrototypeToolsJS.js"></script>
+
+    <!-- Auto Rescheduling -->
+    <script type="text/javascript" src="../../main/JSTools/AutoRescheduleJS.js"></script>
+
+    <!-- CreateAndUpdateTaskJS.js -->
+    <script type="text/javascript" src="../../main/JSTools/CreateAndUpdateTaskJS.js"></script>
+
+    <!-- DailyPoolJS.js -->
+    <script type="text/javascript" src="../../main/JSTools/DailyPoolJS.js"></script>
+
+    <!-- icon CDN -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <!-- bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- CSS -->
+    <style>
+        body {
+            background-color: #ebeff3;
+        }
+
+        .myModal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 100;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+            padding: 5vh 15vw;
+            box-sizing: border-box;
+        }
+
+        /* Modal Content */
+        .myModal-content {
+            position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            border: 1px solid #888;
+            width: 80%;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+
+        /* Add Animation */
+        @-webkit-keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        @keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        /* The Close Button */
+        #close {
+            color: white;
+            float: right;
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 26px;
+        }
+
+        #close:hover,
+        #close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .myModal-header {
+            padding: 5vh 5vw;
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        .myModal-header h1 {
+            display: inline-block;
+        }
+
+        form .myModal-body {
+            padding: 10vh 5vw 10vh 5vw !important;
+        }
+
+        #frm label {
+            margin-top: 3vh !important;
+        }
+
+        #frm input,
+        #frm select {
+            padding: 10px !important;
+            margin: 10px auto !important;
+        }
+
+        #frm select {
+            width: 90% !important;
+        }
+
+        .myModal-body label {
+            margin-top: 5vh !important;
+            margin-left: 4vw !important;
+        }
+
+        .myModal-body input {
+            width: 80%;
+            margin-top: 2vh !important;
+            margin-left: 4vw !important;
+        }
+
+        .myModal-footer {
+            padding: 5vh 5vw;
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        .myModal-footer button {
+            background-color: #ffffff;
+            color: #5cb85c;
+            font-weight: bolder;
+            border: none;
+            box-shadow: none;
+            padding: 10px 30px;
+            bottom: 15px !important;
+            position: relative;
+        }
+
+        .myModal-footer button:hover {
+            background-color: #1a1a1a;
+            color: #4CAF50;
+        }
+
+        #tail {
+            background-image: linear-gradient(45deg, #bbbbbb 42.86%, #999999 42.86%, #999999 50%, #bbbbbb 50%, #bbbbbb 92.86%, #999999 92.86%, #999999 100%) !important;
+	        background-size: 9.90px 9.90px !important;
+            box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175) !important;
+            padding: 2vh 2vw;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Header -->
+    <nav id="MainHeader" class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img class="img-fluid w-25"
+                    src="../../main/Partimer_logo.png"></img></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav mr-auto">
+                </ul>
+
+                <ul class="navbar-nav my-2 my-lg-0">
+                    <!-- onclick="openPanel()" -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#menu-toggle" id="menu-toggle" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars fa-2x px-1"></i></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false"
+                            aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SideBar -->
+    <div id="wrapper" class="">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper" class="">
+            <!--style="overflow: hidden;"-->
+            <ul class="sidebar-nav bg-light">
+                <div class="accordion" id="accordionExample">
+
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-primary btn-link" type="button" data-toggle="collapse"
+                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Auto-Reschedule
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="" id="RescheduleDropdown">
+                                    <label>Set Default Daily Pool(hrs)</label>
+                                    <input type="number" name="Daily Pool" id="DailyPoolID" value=8
+                                        placeholder="Daily Pool(hrs)" class="mb-2" /> <br>
+                                    <button class="setbtn btn btn-primary" type="button"
+                                        onclick="setDailyPool()">Set</button>
+
+                                    <br><br>
+                                    <label>Set Max. Search Date</label>
+                                    <input id="MaxSearchDateID" type="date" name="MaxSearchDate"
+                                        placeholder="Max. Search Date" class="mb-2" />
+                                    <button class="setbtn btn btn-primary" type="button"
+                                        onclick="setMaxSearchDate()">Set</button>
+
+                                    <br><br>
+                                    <label>Default Max. Search Range</label>
+                                    <select id="MaxSearchRangeID">
+                                        <option value=30 id="onemonth">1 month</option>
+                                        <option value=7 id="oneweek">1 week</option>
+                                    </select>
+                                    <br><br>
+                                    <button class="Reschdsetbtn btn btn-primary" type="button"
+                                        onclick="Reschedule()">Reschedule</button>
+                                    <button class="setbtn btn btn-primary" type="button"
+                                        onclick="openReschedule()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn btn-primary btn-link collapsed" type="button" data-toggle="collapse"
+                                    data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Timer
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                            data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div id="Sidepanel" class="sidepanel">
+                                    <div class="currentProgress"></div>
+                                    <div class="timerDisplay">1:00</div>
+
+                                    <div>
+                                        <button id="start_button" class="startbtn btn btn-primary">Start</button>
+                                        <button id="reset_button" class="resetbtn btn btn-primary">Reset</button>
+                                    </div>
+
+                                    <hr>
+                                    <p>Work Minutes</p>
+                                    <div class="timefont" style="display: none;"><span id="work_min">25</span> minutes
+                                    </div>
+                                    <input type="text" id="user_work_min" value="25" autocomplete="off"
+                                        class="mb-2"></input>
+                                    <button id="work_button" class="submitbtn btn btn-primary">Submit</button>
+
+                                    <hr>
+                                    <p>Rest Minutes</p>
+                                    <div class="timefont" style="display: none;"><span id="rest_min">5</span> minutes
+                                    </div>
+                                    <input type="text" id="user_rest_min" value="5" autocomplete="off"
+                                        class="mb-2"></input>
+                                    <button id="rest_button" class="submitbtn btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                            <h5 class="mb-0">
+                                <button class="btn btn-primary btn-link collapsed" type="button" data-toggle="collapse"
+                                    data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Light/Dark Theme
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                            data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div id="Sidepanel" class="sidepanel">
+                                    <span class="dropdown-text">Light/Dark Mode</span> <label class="switch"><input
+                                            id="themeToggle" type="checkbox"><span class="slider"
+                                            onclick="theme_toggle()"></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+        </div> <!-- /#sidebar-wrapper -->
+    </div> <!-- /#wrapper -->
+
+    <div id="TaskForm" class="task_form_popup">
+        <form id="frm" action="/action_page.php" class="task_form">
+            <ul>
+                <li>
+                    <label>Name of Task </label>
+                    <input type="text" name="Task Name" id="TaskNameID" class="field-style"
+                        placeholder="Name of Task" />
+                    <input type='text' id="ColorPickerID" />
+                </li>
+                <li>
+                    <label>Task Estimate(hh:mm)</label>
+                    <input type="number" onkeydown="return event.keyCode !== 69" id="DlyEstH" name="Daily Estimate"
+                        min="0" max="23" style="width: 70px" class="field-style" placeholder="hh" value=0> :
+                    <input type="number" onkeydown="return event.keyCode !== 69" id="DlyEstM" name="Daily Estimate"
+                        min="0" max="59" style="width: 70px" class="field-style" placeholder="mm" value=0>
+                </li>
+                <li>
+                    <label>Project Name </label>
+                    <input id="ProjectNameID" type="text" name="Project Name" class="field-style"
+                        placeholder="Name of Project" />
+                </li>
+                <li>
+                    <label>Priority </label>
+                    <select id="PriorityID" class="field-style">
+                        <option value=0 id="LowID">Low</option>
+                        <option value=1 id="ModerateID">Moderate</option>
+                        <option value=2 id="HighID">High</option>
+                        <option value=3 id="CriticalID">Critical</option>
+                    </select>
+                </li>
+                <li>
+                    <div>Start and End Date</div>
+                    <input id="StartDateID" type="date" name="StartDate" class="field-style field-split align-left"
+                        placeholder="Start Date" />
+                    <input id="EndDateID" type="date" name="EndDate" class="field-style field-split align-right"
+                        placeholder="End Date" />
+                </li>
+                <li>
+                    <label>Notes </label>
+                    <textarea name="Notes" id="noteID" class="field-long field-textarea"></textarea>
+                </li>
+                <li align="right">
+                    <button type="button" class="field-style align-right" onclick="closeForm()">Cancel</button>
+                    <button type="button" id="CreateUpdateBtn" class="field-style"></button>
+                    <button type="button" class="field-style" id="DuplicateBtn"
+                        onclick="DuplicateTask()">Duplicate</button>
+                </li>
+            </ul>
+        </form>
+    </div>
+
+    <div id="tail"></div>
+
+    <p id="logDailyEstPool"></p>
+
+    <p>
+        <div id="ReschdMsg">
+        </div>
+    </p>
+
+    <div>
+        <div id="DailyPoolCtrID"></div>
+
+        <div id="DailyPoolContainer">
+            <div id="dp0class">
+                <p id="dp0"></p><br>
+                <p id="dp0DP"></p>
+            </div>
+
+            <div id="dp1class">
+                <p id="dp1"></p><br>
+                <p id="dp1DP"></p>
+            </div>
+
+            <div id="dp2class">
+                <p id="dp2"></p><br>
+                <p id="dp2DP"></p>
+            </div>
+
+            <div id="dp3class">
+                <p id="dp3"></p><br>
+                <p id="dp3DP"></p>
+            </div>
+
+            <div id="dp4class">
+                <p id="dp4"></p><br>
+                <p id="dp4DP"></p>
+            </div>
+
+            <div id="dp5class">
+                <p id="dp5"></p><br>
+                <p id="dp5DP"></p>
+            </div>
+
+            <div id="dp6class">
+                <p id="dp6"></p><br>
+                <p id="dp6DP"></p>
+            </div>
+
+            <div id="dp7class">
+                <p id="dp7"></p><br>
+                <p id="dp7DP"></p>
+            </div>
+
+            <div id="dp8class">
+                <p id="dp8"></p><br>
+                <p id="dp8DP"></p>
+            </div>
+
+            <div id="dp9class">
+                <p id="dp9"></p><br>
+                <p id="dp9DP"></p>
+            </div>
+
+            <div id="dp10class">
+                <p id="dp10"></p><br>
+                <p id="dp10DP"></p>
+            </div>
+        </div>
+
+        <br>
+        <div id="outer">
+            <div id="visualization" style=" right: 0;left: 0;"></div>
+        </div>
+        <div id="lolo"></div>
+    </div>
+
+</body>
+<script type="text/javascript" src="../../main/Timer/TimerJS.js"></script>
+<script type="text/javascript">
+
+    //Variable initialization
+    var ReschdDropDownOpen = false;
+    var MaxRescheduleRange = 10;
+    var MaxRescheduleDate;
+    var DuplicateID;
+    var intervalID = 4;
+    var DailyPoolArr = new Array();
+    var AutoRescheduleArr = new Array();
+
+    window.setInterval(function () {
+
+        if (timeline.getVisibleItems() == '') {
+            clearInterval();
+        } else {
+            DailyPoolArr = DailyPoolGen();
+            document.getElementById("lolo").innerHTML = '';
+            document.getElementById("lolo").innerHTML = getDlyEstForDate(items.get(2).start);
+        }
+    }, 10);
+    var reschd = new Array();
+    var doneArr = new Array();
+    var continuevar = true;
+    var checkclear;
+    var timelineStart;
+    var timelineEnd;
+    var DailyPoolEst;
+    DailyPoolEst = 4;
+    var StartDate;
+    var EndDate;
+
+    // Create a DataSet (allows two way data-binding)
+    var MileStones = new vis.DataSet([]);
+    var DailyPools = new vis.DataSet([]);
+    var items = new vis.DataSet([{
+            id: 1,
+
+            content: 'Group Discussion',
+            dailyestimate: 80,
+            projectname: 'Year long project',
+            start: new Date(getDateString(new Date(getMonday(new Date()).getTime() + 86400000 * 0))),
+            end: new Date(getDateString(new Date(getMonday(new Date()).getTime() + 86400000 * 1))),
+            notes: 'Do task 1',
+            priority: 0,
+            style: 'background-color: ',
+            type: 'range'
+        },
+
+        {
+            id: 2,
+
+            content: 'Client Meeting - Marketing',
+            dailyestimate: 320,
+            projectname: 'Marketing',
+            start: new Date(getDateString(new Date(getMonday(new Date()).getTime() + 86400000 * 0))),
+            end: new Date(getDateString(new Date(getMonday(new Date()).getTime() + 86400000 * 2))),
+            notes: 'Do task 2',
+            priority: 1,
+            style: 'background-color: ',
+            type: 'range'
+        },
+        {
+            id: 3,
+
+            content: "Doctor's Appointment",
+            dailyestimate: 160,
+            projectname: 'Personal',
+            start: new Date(getDateString(new Date(getMonday(new Date()).getTime() + 86400000 * 0))),
+            end: new Date(getDateString(new Date(getMonday(new Date()).getTime() + 86400000 * 3))),
+            notes: 'Do task 3',
+            priority: 2,
+            style: 'background-color: ',
+            type: 'range'
+        },
+
+        {
+            id: 4,
+
+            content: 'Presentation - HR',
+            dailyestimate: 240,
+            projectname: 'HR',
+            start: new Date(getDateString(new Date(getMonday(new Date()).getTime() + 86400000 * 0))),
+            end: new Date(getDateString(new Date(getMonday(new Date()).getTime() + 86400000 * 2))),
+            notes: 'Do task 4',
+            priority: 3,
+            style: 'background-color: ',
+            type: 'range'
+        }
+    ]);
+
+    //options for the timeline
+    var options = {
+        orientation: 'top',
+        selectable: true,
+        editable: {
+            add: false, // add new items by double tapping (false)
+            updateTime: true, // drag items horizontally
+            updateGroup: true, // drag items from one group to another
+            remove: true, // delete an item by tapping the delete button top right
+            overrideItems: true // allow these options to override item.editable
+        },
+        groupEditable: true,
+        height: '1000px',
+        horizontalScroll: true,
+        verticalScroll: true,
+        width: '100%',
+        moveable: true,
+        zoomable: true,
+        zoomMin: 1000 * 60 * 60 * 24 * 10, // one day in milliseconds
+        zoomMax: 1000 * 60 * 60 * 24 * 10,
+        zoomKey: 'ctrlKey',
+        snap: function (date, scale, step) {
+            var day = 60 * 60 * 24 * 1000;
+            return Math.round(date / day) * day;
+        },
+        moment: function (date) {
+            return vis.moment(date).utc();
+        },
+
+        margin: {
+            item: {
+                horizontal: -1
+            },
+        }
+    };
+
+    function getPriorityLabel(priority) {
+        var text = "(" + String(getPriorityString(priority)) + ")";
+        return '<div class="prioritytext">' + text + '</div>'
+    }
+
+    function ChangeContent() {
+        var ids = items.getIds();
+        var i = 0;
+        var item;
+        while (i < ids.length) {
+            item = items.get(ids[i]);
+            item.content += getPriorityLabel(item.priority);
+            items.update(item);
+            i++;
+        }
+    }
+    // ChangeContent();
+    var container = document.getElementById('visualization');
+    var timeline = new vis.Timeline(container, items, options);
+    var cntrlIsPressed = false;
+    timeline.on('select', function (properties) {
+        if (properties.items.length < 1) {
+            (window.AutoRescheduleArr).length = 0;
+            timeline.setSelection([], {
+                focus: focus.checked
+            });
+        } {
+            SelectMultiple(event, properties.items);
+        }
+    });
+
+    function SelectMultiple(event, idArr) {
+        var id = idArr[0];
+        var ids = new Array();
+        if (idArr != []) {
+            if (event.ctrlKey) {
+                if (!(window.AutoRescheduleArr).includes(id)) window.AutoRescheduleArr.push(id);
+                timeline.setSelection(window.AutoRescheduleArr, {
+                    focus: focus.checked
+                });
+
+            }
+        }
+    }
+    timeline.on('doubleClick', function (properties) {
+        if (properties.what != 'axis') {
+            document.getElementById("TaskForm").style.display = "block";
+            if (!properties.item) {
+
+
+                createForm();
+                window.StartDate = getDate(stringifyObject(properties
+                    .time)); //getDate(stringifyObject(properties.time));
+                window.EndDate = getDate(new Date(new Date(StartDate).getTime() + 86400000 * 1).toISOString());
+            } else {
+
+                var item = items.get(properties.item);
+                var ItemColour = item.style;
+                console.log(getHexFromString(ItemColour));
+
+                updateForm(properties.item);
+                window.StartDate = getDate(new Date(items.get(properties.item).start)
+                    .toISOString()); //getDate(stringifyObject(properties.time))
+                window.EndDate = getDate(new Date(new Date(StartDate).getTime() + 86400000 * 1).toISOString())
+                window.DuplicateID = parseInt(properties.item, 10);
+            }
+        }
+    });
+    timeline.on("mouseMove", function (properties) {
+        var item = items.get(properties.item);
+        if (properties.item) {
+            $('#tail').show();
+            $("#tail").html(GenTitle(item.id, item.content, getDateString(new Date(item.start)), getDateString(
+                    new Date(new Date(item.end).getTime() - 86400000 * 1)), item.projectname, Math
+                .floor(item.dailyestimate / 60), item.dailyestimate % 60, item.notes, item.priority));
+            $('#tail').css({
+                left: properties.pageX + 20,
+                top: properties.pageY,
+            });
+        } else {
+            $('#tail').hide();
+        }
+    });
+    //Function to display the daily pools
+    timeline.on('rangechange', function (properties) {
+        // var isFreeGDP = true;
+        var Dailypool = DailyPoolGen(DailyPoolEst);
+        var deltaX = properties.event.deltaX;
+        var deltaY = properties.event.deltaY;
+        var start = properties.start;
+        var end = properties.end;
+        var DateArr = getArrVisDates(properties.start, properties.end);
+        var offset;
+        var xDate = new Array(10);
+        var TWidth = $('#visualization').width();
+        var scale = (Date.parse(properties.end) - Date.parse(properties.start)) / TWidth;
+        for (var i = 0; i < xDate.length; i++) {
+            xDate[i] = ((Date.parse(new Date(getDateString(new Date(DateArr[i])))) - Date.parse(properties
+                .start))) / scale;
+        }
+
+        $('#dp0class').css({
+            left: xDate[0], //getPosDate(new Date(DateArr[0]),properties.start,scale)
+        });
+        $('#dp1class').css({
+            left: xDate[1],
+        });
+        $('#dp2class').css({
+            left: xDate[2],
+        });
+        $('#dp3class').css({
+            left: xDate[3],
+        });
+        $('#dp4class').css({
+            left: xDate[4],
+        });
+        $('#dp5class').css({
+            left: xDate[5],
+        });
+        $('#dp6class').css({
+            left: xDate[6],
+        });
+        $('#dp7class').css({
+            left: xDate[7],
+        });
+        $('#dp8class').css({
+            left: xDate[8],
+        });
+        $('#dp9class').css({
+            left: xDate[9],
+        });
+    });
+
+    items.on('*', function (event, properties) {
+
+        if (event == 'update') {
+            var item = items.get(properties.data[0].id);
+            var start = properties.data[0].start;
+            var end = properties.data[0].end;
+            if (end <= start) {
+                items.update(
+
+                    {
+                        id: item.id,
+                        content: item.content,
+                        dailyestimate: item.dailyestimate,
+                        projectname: item.projectname,
+                        start: new Date(start),
+                        end: new Date(start.setDate(start.getDate() + 1)),
+                        notes: item.notes,
+                        priority: item.priority,
+                        style: item.style,
+                        type: item.type
+                    }
+                );
+            }
+        }
+    });
+    $("#dp0class, #dp1class, #dp2class, #dp3class, #dp4class, #dp5class, #dp6class, #dp7class, #dp8class, #dp9class,#dp10class")
+        .on("click", function () {
+            var DPdate = Axis2Date($(this).position().left);
+            var ID = GenID();
+            var item = DailyPools.get({
+                filter: function (item) {
+                    return (DPdate.getTime() == item.date.getTime());
+                }
+            });
+            var DailyEst;
+            if (item.length > 0) {
+                DailyEst = prompt("Update Daily Estimate (hrs)", item.dailyestimate);
+                if (DailyEst != '' && DailyEst != null && !isNaN(DailyEst)) {
+                    DailyPools.update([{
+                        id: parseInt(item[0].id, 10),
+                        date: new Date(getDateString(new Date(DPdate))),
+                        dailyestimate: parseInt(DailyEst, 10)
+                    }]);
+                }
+            } else {
+                DailyEst = prompt("Set Daily Estimate (hrs)", DailyPoolEst);
+                if (DailyEst != '' && DailyEst != null && !isNaN(DailyEst)) {
+                    DailyPools.add([{
+                        id: parseInt(ID, 10),
+                        date: new Date(getDateString(new Date(DPdate))),
+                        dailyestimate: parseInt(DailyEst, 10)
+                    }]);
+                }
+            }
+        });
+    $("#ColorPickerID").spectrum({
+        color: "",
+        allowEmpty: true,
+        showInput: true,
+        className: "full-spectrum",
+        showInitial: false,
+        showPalette: true,
+        showPaletteOnly: true,
+        showSelectionPalette: true,
+        maxSelectionSize: 10,
+        preferredFormat: "hex",
+        localStorageKey: "spectrum.demo",
+        move: function (color) {
+
+        },
+        show: function () {
+
+        },
+        beforeShow: function () {
+
+        },
+        hide: function () {
+
+        },
+        change: function () {},
+        palette: [
+            ["rgb(0, 0, 0)", "rgb(67, 67, 67)", "rgb(102, 102, 102)", "rgb(204, 204, 204)",
+                "rgb(217, 217, 217)", "rgb(255, 255, 255)"
+            ],
+            ["rgb(230, 184, 175)", "rgb(244, 204, 204)", "rgb(252, 229, 205)", "rgb(255, 242, 204)",
+                "rgb(217, 234, 211)", "rgb(208, 224, 227)", "rgb(201, 218, 248)", "rgb(207, 226, 243)",
+                "rgb(217, 210, 233)", "rgb(234, 209, 220)"
+            ],
+
+            ["rgb(221, 126, 107)", "rgb(234, 153, 153)", "rgb(249, 203, 156)", "rgb(255, 229, 153)",
+                "rgb(182, 215, 168)", "rgb(162, 196, 201)", "rgb(164, 194, 244)", "rgb(159, 197, 232)",
+                "rgb(180, 167, 214)", "rgb(213, 166, 189)"
+            ],
+
+            ["rgb(204, 65, 37)", "rgb(224, 102, 102)", "rgb(246, 178, 107)", "rgb(255, 217, 102)",
+                "rgb(147, 196, 125)", "rgb(118, 165, 175)", "rgb(109, 158, 235)", "rgb(111, 168, 220)",
+                "rgb(142, 124, 195)", "rgb(194, 123, 160)"
+            ],
+            ["rgb(166, 28, 0)", "rgb(204, 0, 0)", "rgb(230, 145, 56)", "rgb(241, 194, 50)",
+                "rgb(106, 168, 79)", "rgb(69, 129, 142)", "rgb(60, 120, 216)", "rgb(61, 133, 198)",
+                "rgb(103, 78, 167)", "rgb(166, 77, 121)"
+            ]
+        ]
+    });
+    DispDP(timeline.getWindow().start, timeline.getWindow().end);
+
+    function isDark(color) {
+        // Variables for red, green, blue values
+        var r, g, b, hsp;
+
+        // Check the format of the color, HEX or RGB?
+        if (color.match(/^rgb/)) {
+            // If HEX --> store the red, green, blue values in separate variables
+            color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+
+            r = color[1];
+            g = color[2];
+            b = color[3];
+        } else {
+
+            // If RGB --> Convert it to HEX: http://gist.github.com/983661
+            color = +("0x" + color.slice(1).replace(
+                color.length < 5 && /./g, '$&$&'));
+            r = color >> 16;
+            g = color >> 8 & 255;
+            b = color & 255;
+        }
+
+        // HSP (Highly Sensitive Poo) equation from http://alienryderflex.com/hsp.html
+        hsp = Math.sqrt(
+            0.299 * (r * r) +
+            0.587 * (g * g) +
+            0.114 * (b * b)
+        );
+        // Using the HSP value, determine whether the color is light or dark
+        if (hsp > 127.5) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    $(".vis-item").each(function () {
+
+    });
+</script>
+
+<!-- Bootstrap core JavaScript for sidebar-->
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"
+    integrity="sha256-VAvG3sHdS5LqTT+5A/aeq/bZGa/Uj04xKxY8KM/w9EE=" crossorigin="anonymous"></script>
+<script>
+    $(function () {
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+
+        $(window).resize(function (e) {
+            if ($(window).width() <= 768) {
+                $("#wrapper").removeClass("toggled");
+            } else {
+                $("#wrapper").addClass("toggled");
+            }
+        });
+    });
+</script>
+
+<script>
+    function SelectElement(id, valueToSelect) {
+        var element = document.getElementById(id);
+        element.value = valueToSelect;
+    }
+
+    // Get the modal
+    var myModal = document.getElementById('myModal');
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementById("close");
+
+    // When the user clicks the button, open the modal
+    var temp = document.getElementById("project");
+    temp.addEventListener("change", generateData);
+
+    function generateData(event) {
+        if (temp.value === "CreateNewProj") {
+            SelectElement("project", "none");
+            myModal.style.display = "block";
+        }
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        myModal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == myModal) {
+            myModal.style.display = "none";
+        }
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+
+</html>

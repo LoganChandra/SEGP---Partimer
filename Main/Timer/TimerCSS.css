@@ -1,0 +1,231 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.topnav {
+	overflow: hidden;
+	top: 0;
+	background-color: #eaefef;
+	border-bottom-style: solid;
+	border-bottom-width: thin;
+	border-bottom-color: black;
+	height: auto;
+	cursor: default;
+}
+
+.topnav ul {
+	list-style-type: none;
+	background-color: #444;
+	padding: 0;
+	margin: 0;
+}
+
+.topnav li {
+	display: inline-block;
+	height: 50px;
+	margin: 0px;
+	float: right;
+}
+
+.topnav button {
+	font-size: 20px;
+	height: 50px;
+	cursor: pointer;
+	background-color: #eaefef;
+	color: black;
+	padding: 0px 10px;
+	border-width: thin;
+	border-top-style: none;
+	border-bottom-style: none;
+}
+
+.topnav button:hover {
+	background-color: #444;
+	color: white;
+}
+
+.topnav .title {
+	font-size: 30px;
+	position: absolute;
+	left: 0;
+	/*height: 50px;*/
+	/*cursor: pointer;*/
+	background-color: #eaefef;
+	color: black;
+	/*padding: 0px 10px;*/
+	/*border-width: thin;
+	border-top-style: none;
+	border-bottom-style: none;*/
+}
+
+.sidepanel {
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	background-color: #ffffff;
+	overflow-x: hidden;
+	padding-top: 60px;
+	transition: 0.5s;
+	text-align: center;
+	border-left-style: solid;
+	border-left-color: black;
+	border-left-width: thin;
+}
+
+.sidepanel .closebtn {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 36px;
+	height: 50px;
+	border: none;
+	color: black;
+	cursor: pointer;
+	background-color: #82cdff;
+}
+
+.sidepanel .closebtn:hover {
+	background-color: #111;
+	color: white;
+}
+
+.sidepanel p {
+	font-size: 18px;
+}
+
+.sidepanel hr {
+	display: block;
+	height: 1px;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: black;
+	border: none;
+}
+
+.sidepanel .timefont {
+	font-size: 18px;
+}
+
+.sidepanel .startbtn {
+	cursor: pointer;
+	background-color: #82cdff;
+	border: none;
+	height: 25px;
+	width: 70px;
+	margin: 5px;
+	font-size: 18px;
+}
+
+.sidepanel .startbtn:hover {
+	box-shadow: 1px 1px 5px grey;
+}
+
+.sidepanel .startbtn:active {
+	background-image: linear-gradient(#82cdff, #7ac0ef);
+}
+
+.sidepanel .resetbtn {
+	cursor: pointer;
+	background-color: #cccdce;
+	border: none;
+	height: 25px;
+	width: 70px;
+	margin: 5px;
+	font-size: 18px;
+}
+
+.sidepanel .resetbtn:hover {
+	box-shadow: 1px 1px 5px grey;
+}
+
+.sidepanel .resetbtn:active {
+	background-image: linear-gradient(#cccdce, #bdbebf);
+}
+
+.sidepanel .submitbtn {
+	cursor: pointer;
+	background-color: #82cdff;
+	border: none;
+	height: 25px;
+	width: 70px;
+	margin: 5px;
+	font-size: 18px;
+}
+
+.sidepanel .submitbtn:hover {
+	box-shadow: 1px 1px 5px grey;
+}
+
+.sidepanel .submitbtn:active {
+	background-image: linear-gradient(#82cdff, #7ac0ef);
+}
+
+
+.timerDisplay {
+	text-align: center;
+	font-size: 40px;
+	margin: 5px;
+}
+
+.currentProgress {
+	font-size: 25px;
+}
+
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
+	margin: 8px 2px;
+}
+
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-radius: 34px;
+	background-color: #adedff;
+	transition: .4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	border-radius: 50%;
+	background-color: black;
+	transition: .4s;
+}
+
+input:checked + .slider {
+	background-color: black;
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+	transform: translateX(26px);
+	background-color: white;
+}
+
+

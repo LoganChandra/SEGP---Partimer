@@ -1,0 +1,864 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:500');
+
+body,
+html {
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
+  background-color: #ebeff3;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* header */
+nav#MainHeader.navbar {
+  background-color: rgb(248, 249, 250) !important;
+}
+
+nav#MainHeader.navbar a {
+  color: rgb(33, 37, 41) !important;
+}
+
+/* sunday and saturday column selector */
+.vis-time-axis .vis-grid.vis-saturday,
+.vis-time-axis .vis-grid.vis-sunday {
+  content: "Test TEXT";
+}
+
+/* sidebar */
+#wrapper, #sidebar-wrapper {
+  background-color: rgb(248, 249, 250) !important;
+}
+
+/* sidebar items */
+#sidebar-wrapper .card {
+
+}
+
+/* actual sunday and saturday column selector */
+.vis-text.vis-minor.vis-saturday.vis-even,
+.vis-text.vis-minor.vis-sunday.vis-odd,
+.vis-text.vis-minor.vis-saturday.vis-odd,
+.vis-text.vis-minor.vis-sunday.vis-even {
+  background-image: linear-gradient(45deg, #dcdcdc 42.86%, #aaaaaa 42.86%, #aaaaaa 50%, #dcdcdc 50%, #dcdcdc 92.86%, #aaaaaa 92.86%, #aaaaaa 100%);
+  background-size: 9.90px 9.90px;
+  color: #999999;
+  font-weight: 600;
+}
+
+/* the daily estime time column */
+#logDailyEstPool {
+  margin-bottom: 0px !important;
+}
+
+/* date and month bar background colour */
+.vis-time-axis.vis-foreground {
+  background-color: #f5f5f5 !important;
+  text-transform: uppercase;
+  height: 75px !important;
+}
+
+.vis-text.vis-major.vis-measure {
+  height: 45px;
+}
+
+.vis-text.vis-major.vis-odd div,
+.vis-text.vis-major.vis-even div {
+  font-size: 25px;
+  color: #093896;
+  /* text-shadow: #000000 1px 3px; */
+}
+
+/* day and date bar */
+.vis-text.vis-minor.vis-even,
+.vis-text.vis-minor.vis-odd {
+  background-image: linear-gradient(45deg, #ebeff3 42.86%, #aaaaaa 42.86%, #aaaaaa 50%, #ebeff3 50%, #ebeff3 92.86%, #aaaaaa 92.86%, #aaaaaa 100%);
+  background-size: 9.90px 9.90px;
+  border-left: solid #999999 0.5px;
+  font-weight: 500;
+
+}
+
+/* everyday column bar */
+
+/* Sunday and Saturday column bar background */
+.vis-grid.vis-saturday,
+.vis-grid.vis-sunday {
+  background-image: linear-gradient(45deg, #eaeaea 42.86%, #aaaaaa 42.86%, #aaaaaa 50%, #eaeaea 50%, #eaeaea 92.86%, #aaaaaa 92.86%, #aaaaaa 100%) !important;
+  background-size: 9.90px 9.90px !important;
+}
+
+.vis-grid {
+  /* border-left: solid #1a1a1a 0.5px !important; */
+}
+
+.vis-grid::after {
+  border-left: dashed #999999 0.5px !important;
+  content: "";
+  height: 80%;
+  width: 1px;
+  background-color: white;
+  position: absolute;
+  right: 0;
+  top: 10%;
+}
+
+.vis-item {
+	background-color: #dddddd;
+	border-radius: 15px !important;
+}
+
+/* individual column selector */
+.vis-item.vis-range.vis-editable {
+  border-radius: 5px;
+  height: 40px;
+  padding: 5px 10px;
+  font-weight: 600;
+}
+
+/* The popup form - hidden by default */
+.task_form_popup {
+  display: none;
+  position: absolute;
+  border: 3px solid #f1f1f1;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 11;
+}
+
+/* Add styles to the form container */
+.task_form-container {
+  max-width: 500px;
+  position: center;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.task_form-container input[type=text],
+.form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.task_form-container input[type=text]:focus,
+.form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.task_form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.task_form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.task_form-container .btn:hover,
+.open-button:hover {
+  opacity: 1;
+}
+
+.form-style-1 {
+  margin: 10px auto;
+  max-width: 400px;
+  padding: 20px 12px 10px 20px;
+  font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.form-style-1 li {
+  padding: 0;
+  display: block;
+  list-style: none;
+  margin: 10px 0 0 0;
+}
+
+.form-style-1 label {
+  margin: 0 0 3px 0;
+  padding: 0px;
+  display: block;
+  font-weight: bold;
+}
+
+.form-style-1 input[type=text],
+.form-style-1 input[type=date],
+.form-style-1 input[type=datetime],
+.form-style-1 input[type=number],
+.form-style-1 input[type=search],
+.form-style-1 input[type=time],
+.form-style-1 input[type=url],
+.form-style-1 input[type=email],
+textarea,
+select {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  border: 1px solid #BEBEBE;
+  padding: 7px;
+  margin: 0px;
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+}
+
+.form-style-1 input[type=text]:focus,
+.form-style-1 input[type=date]:focus,
+.form-style-1 input[type=datetime]:focus,
+.form-style-1 input[type=number]:focus,
+.form-style-1 input[type=search]:focus,
+.form-style-1 input[type=time]:focus,
+.form-style-1 input[type=url]:focus,
+.form-style-1 input[type=email]:focus,
+.form-style-1 textarea:focus,
+.form-style-1 select:focus {
+  -moz-box-shadow: 0 0 8px #88D5E9;
+  -webkit-box-shadow: 0 0 8px #88D5E9;
+  box-shadow: 0 0 8px #88D5E9;
+  border: 1px solid #88D5E9;
+}
+
+.form-style-1 .field-divided {
+  width: 49%;
+}
+
+.form-style-1 .field-long {
+  width: 100%;
+}
+
+.form-style-1 .field-select {
+  width: 100%;
+}
+
+.form-style-1 .field-textarea {
+  height: 100px;
+}
+
+.form-style-1 input[type=submit],
+.form-style-1 input[type=button] {
+  background: #4B99AD;
+  padding: 8px 15px 8px 15px;
+  border: none;
+  color: #fff;
+}
+
+.form-style-1 input[type=submit]:hover,
+.form-style-1 input[type=button]:hover {
+  background: #4691A4;
+  box-shadow: none;
+  -moz-box-shadow: none;
+
+  -webkit-box-shadow: none;
+}
+
+.form-style-1 .required {
+  color: red;
+}
+
+/* task selector */
+.vis-item.vis-range.vis-editable:hover {
+  -webkit-box-shadow: 4px 3px 27px -12px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 4px 3px 27px -12px rgba(0, 0, 0, 0.75);
+  box-shadow: 4px 3px 27px -12px rgba(0, 0, 0, 0.75);
+}
+
+
+.vis.timeline .item {
+  box-shadow: 5px 5px 10px rgba(128, 128, 128, 0.3);
+}
+
+table .description {
+  font-style: italic;
+}
+
+#visualization {
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.logo img {
+  width: 120px;
+}
+
+label {
+  display: block;
+  font: 1rem 'Fira Sans', sans-serif;
+}
+
+input,
+label {
+  margin: .4rem 0;
+}
+
+.note {
+  font-size: .8em;
+}
+
+.task_form {
+  max-width: 450px;
+  min-height: 100px;
+  background: #FAFAFA;
+  padding: 20px;
+  margin: 120px auto;
+  box-shadow: 1px 1px 25px rgba(0, 0, 0, 1);
+  border-radius: 10px;
+  border: 6px solid #305A72;
+  z-index: 1000 !important;
+}
+
+.task_form ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.task_form ul li {
+  display: block;
+  margin-bottom: 10px;
+  min-height: 35px;
+}
+
+.task_form ul li .field-style {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding: 8px;
+  outline: none;
+  border: 1px solid #B0CFE0;
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+
+}
+
+.task_form ul li .field-style:focus {
+  box-shadow: 0 0 5px #B0CFE0;
+  border: 1px solid #B0CFE0;
+}
+
+.task_form ul li .field-split {
+  width: 49%;
+}
+
+.task_form ul li .field-full {
+  width: 100%;
+}
+
+.task_form ul li input.align-left {
+  float: left;
+}
+
+.task_form ul li input.align-right {
+  float: right;
+}
+
+.task_form ul li textarea {
+  width: 100%;
+  height: 100px;
+}
+
+.task_form ul li input[type="button"],
+.task_form ul li input[type="submit"] {
+  -moz-box-shadow: inset 0px 1px 0px 0px #3985B1;
+  -webkit-box-shadow: inset 0px 1px 0px 0px #3985B1;
+  box-shadow: inset 0px 1px 0px 0px #3985B1;
+  background-color: #216288;
+  border: 1px solid #17445E;
+  display: inline-block;
+  cursor: pointer;
+  color: #FFFFFF;
+  padding: 8px 18px;
+  text-decoration: none;
+  font: 12px Arial, Helvetica, sans-serif;
+}
+
+.task_form ul li input[type="button"]:hover,
+.task_form ul li input[type="submit"]:hover {
+  background: linear-gradient(to bottom, #2D77A2 5%, #337DA8 100%);
+  background-color: #28739E;
+}
+
+.vis.timeline .item {
+  border-color: #acacac;
+  background-color: #efefef;
+  box-shadow: 5px 5px 10px rgba(128, 128, 128, 0.3);
+}
+
+table .description {
+  font-style: italic;
+}
+
+#visualization {
+  position: relative;
+  /* overflow: hidden; */
+}
+
+.logo {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.logo img {
+  width: 120px;
+}
+
+#tail {
+  z-index: 10;
+  position: absolute;
+  float: left;
+}
+
+#testmove1 {
+  z-index: 12;
+  position: relative;
+  float: left;
+}
+
+.testmove {
+  position: fixed;
+  left: 0;
+  right: 0;
+  text-align: center;
+  /*border:1px solid #ff0000*/
+}
+
+.testmove a {
+  display: block;
+  float: left;
+  width: 10%;
+}
+
+.DailyPoolContainer {
+  border-style: groove;
+  position: absolute;
+  /*padding-bottom: 100px;*/
+}
+
+#dp0class,
+#dp1class,
+#dp2class,
+#dp3class,
+#dp4class,
+#dp5class,
+#dp6class,
+#dp7class,
+#dp8class,
+#dp9class {
+  cursor: pointer;
+  z-index: 10;
+  position: absolute;
+  padding-right: auto;
+  /*float: top;*/
+  /*display: none;*/
+  /*border-style: groove;*/
+}
+
+#dp0,
+#dp1,
+#dp2,
+#dp3,
+#dp4,
+#dp5,
+#dp6,
+#dp7,
+#dp8,
+#dp9 {
+  top: 0;
+  position: absolute;
+  /*border-style: groove;*/
+
+}
+
+#dp0DP,
+#dp1DP,
+#dp2DP,
+#dp3DP,
+#dp4DP,
+#dp5DP,
+#dp6DP,
+#dp7DP,
+#dp8DP,
+#dp9DP {
+  color: gray;
+  font-style: italic;
+  font-size: 0.8em;
+  /*border-style: groove;*/
+
+}
+
+.low-risk {
+  color: green;
+}
+
+.lessthan30 {
+  color: rgb(125, 66, 244);
+  font-style: italic;
+
+}
+
+.high-risk {
+  color: red;
+  font-style: italic;
+}
+
+.noteID2 {}
+
+p input {
+  border: none;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  padding: none;
+  width: auto;
+}
+
+.DailyEstPopFrame {
+  display: none;
+  position: absolute;
+  border: 3px solid #f1f1f1;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 11;
+}
+
+.DailyEstPop {
+  display: none;
+}
+
+.DailyEstPop ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.DailyEstPop ul li {
+  display: block;
+  margin-bottom: 10px;
+  min-height: 35px;
+}
+
+.DailyEstPop ul li .field-style {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding: 8px;
+  outline: none;
+  border: 1px solid #B0CFE0;
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+
+}
+
+.DailyEstPop ul li .field-style:focus {
+  box-shadow: 0 0 5px #B0CFE0;
+  border: 1px solid #B0CFE0;
+}
+
+.DailyEstPop ul li .field-split {
+  width: 49%;
+}
+
+.DailyEstPop ul li .field-full {
+  width: 100%;
+}
+
+.DailyEstPop ul li input.align-left {
+  float: left;
+}
+
+.DailyEstPop ul li input.align-right {
+  float: right;
+}
+
+.DailyEstPop ul li textarea {
+  width: 100%;
+  height: 100px;
+}
+
+.DailyEstPop ul li input[type="button"],
+.DailyEstPop ul li input[type="submit"] {
+  -moz-box-shadow: inset 0px 1px 0px 0px #3985B1;
+  -webkit-box-shadow: inset 0px 1px 0px 0px #3985B1;
+  box-shadow: inset 0px 1px 0px 0px #3985B1;
+  background-color: #216288;
+  border: 1px solid #17445E;
+  display: inline-block;
+  cursor: pointer;
+  color: #FFFFFF;
+  padding: 8px 18px;
+  text-decoration: none;
+  font: 12px Arial, Helvetica, sans-serif;
+}
+
+.DailyEstPop ul li input[type="button"]:hover,
+.DailyEstPop ul li input[type="submit"]:hover {
+  background: linear-gradient(to bottom, #2D77A2 5%, #337DA8 100%);
+  background-color: #28739E;
+}
+
+.DailyEstPop .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow 
+.DailyEstPop .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+/* Toggle this class - hide and show the popup */
+.DailyEstPop .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.selection {
+  border: groove;
+}
+
+.full-spectrum .sp-palette {
+  max-width: 200px;
+  float: right;
+}
+
+.lighttext {
+  color: white;
+}
+
+.darktext {
+  color: black;
+}
+
+.prioritytext {
+  position: absolute;
+  right: 0;
+  margin-top: -22px;
+  color: black;
+  font-style: bold;
+  font-size: 0.8em;
+}
+
+.DuplicateBtn {
+  display: none;
+}
+
+.display {
+  display: block;
+}
+
+.nodisplay {
+  display: none;
+}
+
+/* -----------------------------------------------Timer---------------------------------------------------- */
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.timerDisplay {
+  text-align: center;
+  font-size: 40px;
+  margin: 5px;
+}
+
+.currentProgress {
+  font-size: 25px;
+}
+
+/*CSS for the toggle switch*/
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 25px;
+  margin-left: 5px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  margin-right: 0px;
+  top: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  background-color: #1a1a1a;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 2px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: #1a1a1a;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked+.slider:before {
+  transform: translateX(17px);
+  background-color: #1a1a1a;
+}
+
+
+/* ---------------------------------------------------------------------------INput--------------------------------------- */
+
+.btn {
+  text-align: center !important;
+  margin: auto !important;
+}
+
+.button {
+  color: #ffffff;
+  background-color: #24cf5f;
+  padding: 12px 25px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 0;
+  border-radius: 2px;
+  outline: 0;
+  box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.2);
+  transition: all .2s;
+}
+
+.button:hover,
+.button:active,
+.button:focus {
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+select,
+input[type="inputbox"] {
+  width: calc(100%) !important;
+}
+
+input,
+select,
+option {
+
+  width: calc(90%);
+  min-height: 30px;
+  padding-left: 15px;
+  padding-right: 5px;
+  letter-spacing: .5px;
+  border: 0;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+input:valid,
+select:valid {
+  border-color: #24cf5f;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #fbcf34;
+}
+
+#wrapper .card-body {
+  text-align: center !important;
+}
